@@ -1,0 +1,43 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 3
+      author: k0m4
+      changes:
+        - createSequence:
+            sequenceName: ACTIVITY_SEQ
+            startValue: 1
+            incrementBy: 1
+
+        - createTable:
+            tableName: activity
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_account_id
+                  type: bigint
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: date
+                  type: date
+              - column:
+                  name: location
+                  type: varchar(255)
+              - column:
+                  name: note
+                  type: varchar(1000)
+        - addForeignKeyConstraint:
+            baseColumnNames: user_account_id
+            baseTableName: activity
+            constraintName: fk_activity_user
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: user_account

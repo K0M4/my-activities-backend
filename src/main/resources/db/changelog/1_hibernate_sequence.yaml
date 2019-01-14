@@ -1,0 +1,18 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: k0m4
+      changes:
+        - comment: create hibernate sequence if not existing
+
+        - preConditions:
+            - onFail: MARK_RAN
+            - not:
+              - sequenceExists:
+                sequenceName: HIBERNATE_SEQUENCE
+
+        - createSequence:
+            sequenceName: HIBERNATE_SEQUENCE
+            startValue: 1
+            incrementBy: 1

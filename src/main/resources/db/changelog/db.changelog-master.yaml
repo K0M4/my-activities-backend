@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/1_hibernate_sequence.yaml
+  - include:
+      file: db/changelog/2_user_account.yaml
+  - include:
+      file: db/changelog/3_activity.yaml
+

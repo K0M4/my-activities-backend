@@ -1,0 +1,26 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 2
+      author: k0m4
+      changes:
+        - createSequence:
+            sequenceName: USER_ACCOUNT_SEQ
+            startValue: 1
+            incrementBy: 1
+
+        - createTable:
+            tableName: user_account
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+              - column:
+                  name: password
+                  type: char(60)
