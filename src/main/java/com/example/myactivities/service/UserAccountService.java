@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserAccountService extends UserDetailsService {
 
-  UserAccount getCurrentUser();
+  Long getCurrentUserId();
 
   UserAccount saveUserAccount(UserAccount userAccount) throws IllegalArgumentException;
 }

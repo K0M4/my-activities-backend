@@ -3,6 +3,7 @@ package com.example.myactivities.filter;
 import com.example.myactivities.config.JwtConfig;
 import com.example.myactivities.dto.UserAccountDto;
 import com.example.myactivities.entity.UserAccount;
+import com.example.myactivities.entity.UserAccountDetails;
 import com.example.myactivities.mapper.UserAccountMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -60,10 +61,11 @@ public class JwtUserAccountAuthFilter extends UsernamePasswordAuthenticationFilt
       FilterChain chain,
       Authentication auth) {
 
+    UserAccountDetails userAccountDetails = (UserAccountDetails) (auth.getPrincipal());
     long now = System.currentTimeMillis();
     String token =
         Jwts.builder()
-            .setSubject(auth.getName())
+            .setSubject(Long.toString(userAccountDetails.getUser().getId()))
             .claim(
                 "authorities",
                 auth.getAuthorities().stream()

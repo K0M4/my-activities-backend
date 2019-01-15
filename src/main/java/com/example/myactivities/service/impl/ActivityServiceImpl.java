@@ -20,23 +20,23 @@ public class ActivityServiceImpl implements ActivityService {
 
   @Override
   public List<Activity> getActivities() {
-    UserAccount userAccount = userAccountService.getCurrentUser();
-    return activityRepository.findByUserAccountId(userAccount.getId());
+    return activityRepository.findByUserAccountId(userAccountService.getCurrentUserId());
   }
 
   @Override
   @Transactional
   public Activity saveActivity(Activity activity) {
-    UserAccount userAccount = userAccountService.getCurrentUser();
+    UserAccount userAccount = new UserAccount();
+    userAccount.setId(userAccountService.getCurrentUserId());
     activity.setUserAccount(userAccount);
     return activityRepository.save(activity);
   }
 
   @Override
   public Activity updateActivity(Activity activity) {
-    UserAccount userAccount = userAccountService.getCurrentUser();
     Activity existingActivity =
-        activityRepository.findByIdAndUserAccountId(activity.getId(), userAccount.getId());
+        activityRepository.findByIdAndUserAccountId(
+            activity.getId(), userAccountService.getCurrentUserId());
     activity.setId(existingActivity.getId());
     return activityRepository.save(activity);
   }
@@ -44,7 +44,7 @@ public class ActivityServiceImpl implements ActivityService {
   @Override
   @Transactional
   public void deleteActivity(Long id) {
-    UserAccount userAccount = userAccountService.getCurrentUser();
-    activityRepository.deleteActivityByIdAndUserAccountId(id, userAccount.getId());
+    activityRepository.deleteActivityByIdAndUserAccountId(
+        id, userAccountService.getCurrentUserId());
   }
 }
